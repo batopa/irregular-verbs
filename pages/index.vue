@@ -50,12 +50,18 @@
                     >Check it</button>
 
 
-                    <div class="col-span-4">
+                    <div>
                         <div v-if="ok === true" class="mt-5">
                             Good job!
                             <button class="p-2 ml-3 p-3 rounded-md bg-blue-500 hover:bg-blue-700 text-zinc-100" @click="next()">Next</button>
                         </div>
                         <div v-if="ok === false">No, no, no.... try again!</div>
+                    </div>
+
+                    <div class="col-start-4 flex flex-col text-lg">
+                        <span>Attempts: {{ total }}</span>
+                        <span class="text-red-500">Errors: {{ errors }}</span>
+                        <span class="text-green-500">Success: {{ percentage }}%</span>
                     </div>
                 </div>
             </form>
@@ -82,6 +88,9 @@ export default {
             current: { base: null, past: null, participle: null },
             known: null,
             ok: null,
+            total: 0,
+            errors: 0,
+            correct: 0,
         };
     },
 
@@ -104,6 +113,14 @@ export default {
             }
 
             return this.participle === this.current.participle;
+        },
+
+        percentage: function() {
+            if (this.total === 0) {
+                return 0;
+            }
+
+            return Math.round((this.correct / this.total) * 100);
         },
     },
 
@@ -147,16 +164,19 @@ export default {
         },
 
         check() {
+            this.total++;
             this.base = this.base && this.base.toLowerCase().trim();
             this.past = this.past && this.past.toLowerCase().trim();
             this.participle = this.participle && this.participle.toLowerCase().trim();
             if (this.baseResult && this.pastResult && this.participleResult) {
                 this.ok = true;
+                this.correct++;
 
                 return;
             }
 
             this.ok = false;
+            this.errors++;
         },
 
         next() {
