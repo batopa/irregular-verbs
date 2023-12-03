@@ -1,4 +1,13 @@
-export const verbs = [
+export interface VerbItem {
+  base: string,
+  past: string | string[],
+  participle: string | string [],
+  translation: {
+    it: string[],
+  }
+}
+
+export const verbsList: VerbItem[] = [
   {
     base: 'be',
     past: ['was', 'were', 'was/were'],
@@ -346,7 +355,7 @@ export const verbs = [
   {
     base: 'know',
     past: 'knew',
-    past: 'known',
+    participle: 'known',
     translation: {
       it: ['conoscere', 'sapere'],
     },
@@ -777,7 +786,7 @@ export const verbs = [
   },
   {
     base: 'wear',
-    paste: 'wore',
+    past: 'wore',
     participle: 'worn',
     translation: {
       it: ['indossare'],
@@ -785,7 +794,7 @@ export const verbs = [
   },
   {
     base: 'win',
-    paste: 'won',
+    past: 'won',
     participle: 'won',
     translation: {
       it: ['vincere'],
@@ -793,7 +802,7 @@ export const verbs = [
   },
   {
     base: 'write',
-    paste: 'wrote',
+    past: 'wrote',
     participle: 'written',
     translation: {
       it: ['scrivere'],
