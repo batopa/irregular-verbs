@@ -1,9 +1,9 @@
 import { verbsList } from '~~/config/verbs';
 
 interface ValidationInfo {
-  base: boolean,
-  past: boolean,
-  participle: boolean,
+  base: boolean | null,
+  past: boolean | null,
+  participle: boolean | null,
 }
 
 export const useVerbs = () => {
@@ -52,12 +52,15 @@ export const useVerbs = () => {
     }
 
     return validation;
-  }
+  };
+
+  const findByTranslation = (translation: string) => verbsList.find(v => v.translation.it.includes(translation));
 
   return {
     verbs,
     validation,
     extractTranslations,
     validate,
+    findByTranslation,
   };
 }
